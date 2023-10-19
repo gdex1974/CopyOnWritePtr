@@ -101,4 +101,9 @@ TEST(CopyOnWritePtrTest, Get)
     *newPtr.getMutable() = 10;
     EXPECT_EQ(*newPtr.get(), 10);
     EXPECT_EQ(*copyOnWritePtr.get(), 42);
+
+    auto testptr = nonstd::make_cow<std::unique_ptr<int>>(new int(42));
+    EXPECT_EQ(**testptr.get(), 42); // testptr.get() returns a const pointer
+    // the next line will not compile:
+    //**testptr.getMutable() = 10;
 }
